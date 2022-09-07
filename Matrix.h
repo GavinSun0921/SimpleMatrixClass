@@ -10,6 +10,7 @@
 #include <vector>
 #include <stdexcept>
 #include <iostream>
+#include <cmath>
 
 template<typename T = double>
 class Matrix {
@@ -77,13 +78,13 @@ public:
     }
 
     Matrix<T> operator~() const {
-        Matrix<T> tmp = Matrix<T>(this->dimY, this->dimX);
-        for (int i = 0; i < tmp.dimX; i++) {
-            for (int j = 0; j < tmp.dimY; j++) {
-                tmp.fastAt(i, j) = this->fastCat(j, i);
+        Matrix<T> ret = Matrix<T>(this->dimY, this->dimX);
+        for (int i = 0; i < this->dimX; i++) {
+            for (int j = 0; j < this->dimY; j++) {
+                ret.fastAt(i, j) = this->fastCat(j, i);
             }
         }
-        return tmp;
+        return ret;
     }
 
     Matrix<T> &operator+=(const Matrix<T> src) {
@@ -103,7 +104,17 @@ public:
     }
 
     T &operator[](size_t y) {
+        // TODO not implement
+    }
 
+    Matrix<T> pow(const int y) {
+        Matrix<T> ret = Matrix<T>(this->dimX, this->dimY);
+        for (int i = 0; i < this->dimX; i++) {
+            for (int j = 0; j < this->dimY; j++) {
+                ret.fastAt(i, j) = std::pow(this->fastCat(i, j), y);
+            }
+        }
+        return ret;
     }
 
 public:

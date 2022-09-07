@@ -11,7 +11,10 @@ int main() {
     Matrix<double> z = x * y;
     std::cout << z << std::endl;
 
-    std::cout << transposition(z) << std::endl;
+    Matrix<double> z2 = z.pow(2);
+    std::cout << z2 << std::endl;
+
+    std::cout << transposition(z2) << std::endl;
 
     return 0;
 }
