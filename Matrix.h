@@ -79,8 +79,8 @@ public:
 
     Matrix<T> operator~() const {
         Matrix<T> ret = Matrix<T>(this->dimY, this->dimX);
-        for (int i = 0; i < this->dimX; i++) {
-            for (int j = 0; j < this->dimY; j++) {
+        for (size_t i = 0; i < this->dimX; i++) {
+            for (size_t j = 0; j < this->dimY; j++) {
                 ret.fastAt(i, j) = this->fastCat(j, i);
             }
         }
@@ -109,8 +109,8 @@ public:
 
     Matrix<T> pow(const int y) {
         Matrix<T> ret = Matrix<T>(this->dimX, this->dimY);
-        for (int i = 0; i < this->dimX; i++) {
-            for (int j = 0; j < this->dimY; j++) {
+        for (size_t i = 0; i < this->dimX; i++) {
+            for (size_t j = 0; j < this->dimY; j++) {
                 ret.fastAt(i, j) = std::pow(this->fastCat(i, j), y);
             }
         }
@@ -126,7 +126,7 @@ private:
 };
 
 template<typename T>
-const Matrix<T> transposition(const Matrix<T> &x) {
+Matrix<T> transposition(const Matrix<T> &x) {
     return ~x;
 }
 
@@ -136,8 +136,8 @@ Matrix<T> operator+(const Matrix<T> &a, const Matrix<T> &b) {
         throw std::logic_error("the matrix's size doesn't match in matrix addition!");
     }
     Matrix<T> res = Matrix<T>(a.dimX, a.dimY);
-    for (int i = 0; i < res.dimX; i++) {
-        for (int j = 0; j < res.dimY; j++) {
+    for (size_t i = 0; i < res.dimX; i++) {
+        for (size_t j = 0; j < res.dimY; j++) {
             res.fastAt(i, j) = a.fastCat(i, j) + b.fastCat(i, j);
         }
     }
@@ -150,8 +150,8 @@ Matrix<T> operator-(const Matrix<T> &a, const Matrix<T> &b) {
         throw std::logic_error("the matrix's size doesn't match in matrix subtraction!");
     }
     Matrix<T> res = Matrix<T>(a.dimX, a.dimY);
-    for (int i = 0; i < res.dimX; i++) {
-        for (int j = 0; j < res.dimY; j++) {
+    for (size_t i = 0; i < res.dimX; i++) {
+        for (size_t j = 0; j < res.dimY; j++) {
             res.fastAt(i, j) = a.fastCat(i, j) - b.fastCat(i, j);
         }
     }
@@ -161,8 +161,8 @@ Matrix<T> operator-(const Matrix<T> &a, const Matrix<T> &b) {
 template<typename T>
 Matrix<T> operator*(const Matrix<T> &a, const T &b) {
     Matrix<T> res = Matrix<T>(a.dimX, a.dimY);
-    for (int i = 0; i < a.dimX; i++) {
-        for (int j = 0; j < a.dimY; j++) {
+    for (size_t i = 0; i < a.dimX; i++) {
+        for (size_t j = 0; j < a.dimY; j++) {
             res.fastAt(i, j) = a.fastAt(i, j) * b;
         }
     }
@@ -181,10 +181,10 @@ Matrix<T> operator*(const Matrix<T> &a, const Matrix<T> &b) {
                 "first matrix's columns doesn't equal to second matrix's rows in matrix multiplication!");
     }
     Matrix<T> res = Matrix<T>(a.dimX, b.dimY);
-    for (int i = 0; i < a.dimX; i++) {
-        for (int j = 0; j < b.dimY; j++) {
+    for (size_t i = 0; i < a.dimX; i++) {
+        for (size_t j = 0; j < b.dimY; j++) {
             res.fastAt(i, j) = 0;
-            for (int k = 0; k < a.dimY; k++) {
+            for (size_t k = 0; k < a.dimY; k++) {
                 res.fastAt(i, j) += a.fastCat(i, k) * b.fastCat(k, j);
             }
         }
@@ -194,11 +194,11 @@ Matrix<T> operator*(const Matrix<T> &a, const Matrix<T> &b) {
 
 template<typename T>
 std::ostream &print(std::ostream &ostr, const Matrix<T> &a) {
-    for (int i = 0; i < a.dimX; i++) {
+    for (size_t i = 0; i < a.dimX; i++) {
         if (i == 0) ostr << "[";
         else ostr << " ";
         ostr << "[\t";
-        for (int j = 0; j < a.dimY; j++) {
+        for (size_t j = 0; j < a.dimY; j++) {
             ostr << a.fastCat(i, j) << "\t";
         }
         if (i < a.dimX - 1) ostr << "]\n";
